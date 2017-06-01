@@ -1,0 +1,11 @@
+Oturum Açan: {{currentUser.name}} {{currentUser.surname}}
+<br />
+<br />
+Görevler:
+<div *ngFor="let taskitem of currentUser.taskList" class="div-table">
+    <div class="div-table-row">
+        <div class="div-table-col">{{taskitem.taskDate | date: 'dd.MM.yyyy'}}</div>
+        <div class="div-table-col">{{taskitem.taskName}}</div>
+        <div class="div-table-col">{{taskitem.isCompleted ? "Yapıldı" : "Yapılmadı"}}</div>
+    </div>
+</div>

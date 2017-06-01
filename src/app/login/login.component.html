@@ -1,0 +1,6 @@
+<form name="form" (ngSubmit)="login()">
+    <input type="text" [(ngModel)]="model.username" name="username" />
+    <input type="password" [(ngModel)]="model.password" name="password" />
+    <button type="submit">Giriş</button>
+    <span>Sonuç:{{lblresult}}</span>
+</form>
