@@ -11,18 +11,30 @@ export class LoginComponent implements OnInit {
 
     model: any = {};
     lblresult;
+    returnUrl: string;
 
     constructor(
+        private route: ActivatedRoute,
         private router: Router,
         private userService: UserService) { }
 
     ngOnInit() {
-
+        sessionStorage.removeItem('onlineUser');
+        
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     login() {
         this.userService.login(this.model.username, this.model.password).subscribe(data => {
-            this.lblresult = JSON.parse(data).userId;
+
+            let onlineUser = JSON.parse(data);
+
+            if (!onlineUser) { this.lblresult = "Bilgilerinizi kontrol ederek tekrar deneyiniz."; return; }
+
+            sessionStorage.setItem('onlineUser', JSON.stringify(onlineUser));
+
+            this.lblresult = onlineUser.userId;
+
             this.router.navigate(['/home']);
         });
     }

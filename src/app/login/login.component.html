@@ -1,6 +1,8 @@
-<form name="form" (ngSubmit)="login()">
-    <input type="text" [(ngModel)]="model.username" name="username" />
-    <input type="password" [(ngModel)]="model.password" name="password" />
+<form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
+    <input type="text" [(ngModel)]="model.username" name="username" #username="ngModel" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+    <div *ngIf="f.submitted && !username.valid" style="color:#ff0000;">Kullanıcı adı email formatında olmalıdır.</div>
+    <input type="password" [(ngModel)]="model.password" name="password" #password="ngModel" required minlength="4" maxlength="8"/>
+    <div *ngIf="f.submitted && !password.valid" style="color:#ff0000;">Parolanız en az 4 en çok 8 karakter olmalıdır.</div>
     <button type="submit">Giriş</button>
     <span>Sonuç:{{lblresult}}</span>
 </form>
